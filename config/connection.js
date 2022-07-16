@@ -25,7 +25,7 @@ DBconnection
     console.error('Unable to connect to the database:', err);
   });
 
-  db.DBconnection.sync()
+  db.DBconnection.sync({ alter: true })
   .then(() => {
     console.log('sync done')
   })
@@ -35,4 +35,4 @@ DBconnection
 
   
 
-module.exports = DBconnection;
+module.exports ={ DBconnection,db};
