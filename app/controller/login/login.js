@@ -151,7 +151,8 @@ exports.getAllUser =  async (req, res) => {
                 if(faqDtlsArray.length > 0){
                     var itemCount = data.count;   
                     var pageCount  =  Math.ceil(itemCount / pageLimit); 
-                    faqDtlsArray.forEach(element => {
+                    faqDtlsArray.forEach(async (element) => {
+                        //let encUserId = await commonFunction.encryptId(element.userID)
                         var item = {
                             'id': element.userID,
                             'username': element.userName
@@ -196,6 +197,55 @@ exports.getAllUser =  async (req, res) => {
         response_data.totalItemCount = 0;
         response_data.status = response_status;
 
+        res.status(500);
+        res.send({ response: response_data });
+    }
+    
+}
+
+exports.updateUser =  async (req, res) => {
+    var response_status = {};
+    var response_dataset = [];
+    var response_data = {};
+
+    try {
+        var login_id = req.body.loginDetails.id;
+        var userData = {						
+            'firstName': req.body.firstName
+        };
+        var whereObj = {
+            where : {'userID': login_id}
+        }
+        let updatesdRecord = await UserModel.updateAnyRecord(userData, whereObj);
+        console.log(' updatesdRecord.dataValues', updatesdRecord)
+        if(updatesdRecord){	                        	
+            response_status.msg = 'User updated successfully.';
+            response_status.action_status = true;
+            // response_dataset.id = updatesdRecord.dataValues.userID;
+            // response_dataset.username = updatesdRecord.dataValues.userName;
+            // response_dataset.firstName = updatesdRecord.dataValues.firstName;
+            response_data.dataset = response_dataset;
+            response_data.status = response_status;
+
+            res.status(200);
+            res.send({ response: response_data });
+
+        }else{
+            response_status.msg = 'Something went wrong, please try again.';
+            response_status.action_status = false;
+            response_data.dataset = response_dataset;
+            response_data.status = response_status;
+            
+            res.status(500);
+            res.send({ response: response_data });
+        } 
+    } catch (e) {
+        console.log(e)
+        response_status.msg = 'Something went wrong, please try again.';
+        response_status.action_status = false;
+        response_data.dataset = response_dataset;
+        response_data.status = response_status;
+        
         res.status(500);
         res.send({ response: response_data });
     }

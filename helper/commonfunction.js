@@ -26,6 +26,7 @@ exports.comparePassword = async (password,hash) => {
 
 // id encryption
 exports.encryptId = async (id) => {
+    //console.log('fff')
     const encryptedId = await cryptr.encrypt(id);
     return encryptedId;
 }

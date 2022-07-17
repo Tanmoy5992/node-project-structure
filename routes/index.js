@@ -13,8 +13,8 @@ var validateUser = require('../middleware/verify-user');
 /*Admin routing*/
 router.post('/',[], (req, res) => { loginController.login(req,res) });
 router.post('/register',[], (req, res) => { loginController.register(req,res) });
-router.get('/get-all-user',validateUser.validateToken, (req, res) => { loginController.getAllUser(req,res) });
-router.get('/logout',[], (req, res) => { loginController.logout(req,res) });
+router.get('/get-all-user', validateUser.validateToken, (req, res) => { loginController.getAllUser(req,res) });
+router.post('/update-user', validateUser.validateToken, (req, res) => { loginController.updateUser(req,res) });
 
 
 /*End*/

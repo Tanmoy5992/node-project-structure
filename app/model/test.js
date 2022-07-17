@@ -21,3 +21,9 @@ exports.getAllRecord=(search_str,pageLimit, offset)=>{
 
     });        
 }
+
+exports.updateAnyRecord = (updatedata, wheredata = {}) => { 
+    console.log(updatedata);  
+    console.log(wheredata);      
+    return UserModel.update(updatedata,wheredata);
+}
