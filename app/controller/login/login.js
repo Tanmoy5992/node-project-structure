@@ -1,4 +1,4 @@
-const  UserModel  = require('../../model/test');
+const  UserModel  = require('../../model/user');
 const  commonFunction  = require('../../../helper/commonfunction');
 
 exports.login = async (req, res) => {

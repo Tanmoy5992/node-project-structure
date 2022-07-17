@@ -13,7 +13,7 @@ const db = {}
 db.Sequelize = Sequelize
 db.DBconnection = DBconnection
 
-const userModel = require('../app/model/user');
+const userModel = require('../app/schema/user.schema');
 const user =  userModel(DBconnection, Sequelize);
 
 DBconnection
