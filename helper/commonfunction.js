@@ -4,7 +4,7 @@ const Cryptr = require('cryptr');
 const cryptr = new Cryptr('1');	
 
 exports.createToken = async (userdtls) => {
-    var jwtToken = jwt.sign(userdtls, 'global.CONFIG.jwt.JWT_SECRET');
+    var jwtToken =await jwt.sign(userdtls, 'secret');
     return jwtToken;
 }
 

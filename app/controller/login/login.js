@@ -3,23 +3,23 @@ const  commonFunction  = require('../../../helper/commonfunction');
 
 exports.login = async (req, res) => {
     var response_status = {};
-    var response_dataset = {};
+    var response_dataset = []
     var response_data = {};  
 
     try {
         var username  	= req.body.username;
         var password 	= req.body.password;        
         let userRecord 	= await UserModel.findByAny({where:{'userName':username}});
-        console.log('userRecord',userRecord)
+
         if(userRecord){
             var userDtls = userRecord.dataValues;
 			if(userDtls == null){
 				response_status.msg = 'Record Not Found.';
-                response_status.action_status = false;
+                response_status.action_status = true;
                 response_data.dataset = response_dataset;
                 response_data.status = response_status;               
 
-                res.status(500);
+                res.status(200);
                 res.send({ response: response_data });
 			} else {
 
@@ -46,28 +46,26 @@ exports.login = async (req, res) => {
                     res.send({ response: response_data });
                 }else{
                     response_status.msg = 'Password is incorrect.';
-                    response_status.action_status = false;
+                    response_status.action_status = true;
                     response_data.dataset = response_dataset;
                     response_data.status = response_status;               
 
-                    res.status(500);
+                    res.status(200);
                     res.send({ response: response_data });
                 }
 
-                // const token = await commonFunction.createToken(req.body)
-                // console.log('token',token)
             }
         } else {
             response_status.msg = 'Username or password is incorrect.';
-            response_status.action_status = false;
+            response_status.action_status = true;
             response_data.dataset = response_dataset;
             response_data.status = response_status;               
 
-            res.status(500);
+            res.status(200);
             res.send({ response: response_data });
         }
     } catch (e) {
-        console.log(e)
+
         response_status.msg = 'Something went wrong.';                
         response_status.action_status = false;
         response_data.dataset = response_dataset;
@@ -82,7 +80,7 @@ exports.login = async (req, res) => {
 exports.register =  async (req, res) => {
 
     var response_status = {};
-    var response_dataset = {};
+    var response_dataset = []
     var response_data = {};
     try {
         var hashPassword = await commonFunction.hashPassword(req.body.password);
@@ -120,14 +118,15 @@ exports.getAllUser =  async (req, res) => {
     var response_data = {};
     var array_list = [];
     var search_str = "";
+
     try {
-        var pageLimit = req.body.limit;
+        var pageLimit = req.query.limit;
         if ((pageLimit == '') || (pageLimit == null) || (pageLimit == 'undefined')) {
             pageLimit = parseInt(10);
         }else{
             pageLimit = parseInt(pageLimit);
         }
-        var pageNo = req.body.pageno;
+        var pageNo = req.query.pageno;
         if ((pageNo == '') || (pageNo == null) || (pageNo == 'undefined')) {
         pageNo = 1;
         }else{
@@ -171,7 +170,7 @@ exports.getAllUser =  async (req, res) => {
                     res.send({ response: response_data });
                 }else{
                     response_status.msg = 'No Record Found.';                
-                    response_status.action_status = false;
+                    response_status.action_status = true;
                     response_data.dataset = response_dataset;
                     response_data.totalItemCount = 0;
                     response_data.status = response_status;
@@ -181,7 +180,7 @@ exports.getAllUser =  async (req, res) => {
                 }
         } else {
             response_status.msg = 'No Record Found.';                
-            response_status.action_status = false;
+            response_status.action_status = true;
             response_data.dataset = response_dataset;
             response_data.totalItemCount = 0;
             response_data.status = response_status;
@@ -190,6 +189,7 @@ exports.getAllUser =  async (req, res) => {
             res.send({ response: response_data });
         }
     } catch (e){
+
         response_status.msg = 'Something went wrong.';                
         response_status.action_status = false;
         response_data.dataset = response_dataset;
