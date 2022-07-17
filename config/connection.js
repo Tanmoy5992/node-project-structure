@@ -1,10 +1,10 @@
 const { Sequelize, DataTypes } = require('sequelize');
 
 const DBconnection = new Sequelize({
-  database: 'database_development',
-  username: 'root',
-  password: '',
-  host: 'localhost',
+  database: process.env.DATABASE,
+  username: process.env.USER,
+  password: process.env.PASSWORD,
+  host: process.env.HOST,
   dialect: 'mysql'
 });
 
@@ -30,6 +30,7 @@ DBconnection
     console.log('sync done')
   })
   .catch(err=>{
+    console.log(err)
     console.log('sync err')
   })
 
