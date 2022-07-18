@@ -37,7 +37,7 @@ if(process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'staging'){
   app.use(helmet());
 }
 
-app.use('/', indexRouter);
+app.use('/api/', indexRouter);
 
 
 // catch 404 and forward to error handler

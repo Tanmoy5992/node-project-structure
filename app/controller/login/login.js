@@ -30,8 +30,7 @@ exports.login = async (req, res) => {
                         'username' : userDtls.userName			 		
                     }
 
-                    var encUserId   =  await commonFunction.encryptId(userDtls.userID);
-                    let Record      = {	'id' : encUserId, 'username' : userDtls.userName};					 	
+                    let Record      = {	'id' : userDtls.userID, 'username' : userDtls.userName};					 	
                     var jwtToken 	= await commonFunction.createToken(userdtls); 
 
                     response_status.msg = 'Logged in successfully';
@@ -148,11 +147,11 @@ exports.getAllUser =  async (req, res) => {
 
         if(data){
             var faqDtlsArray = data.rows;
+            //console.log('faqDtlsArray',faqDtlsArray)
                 if(faqDtlsArray.length > 0){
                     var itemCount = data.count;   
                     var pageCount  =  Math.ceil(itemCount / pageLimit); 
                     faqDtlsArray.forEach(async (element) => {
-                        //let encUserId = await commonFunction.encryptId(element.userID)
                         var item = {
                             'id': element.userID,
                             'username': element.userName

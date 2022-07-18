@@ -1,22 +1,13 @@
 'use strict';
+
+var loginRouter = require('./login');
+
 var express = require('express');
 var router = express.Router();
 
-/*Controller initialization*/
-var loginController = require('../app/controller/login/login');
-/*End*/
+const adminApi = '/admin';
 
-/*Middleware initialization*/
-var validateUser = require('../middleware/verify-user');
-/*End*/
+router.use(adminApi,loginRouter)
 
-/*Admin routing*/
-router.post('/',[], (req, res) => { loginController.login(req,res) });
-router.post('/register',[], (req, res) => { loginController.register(req,res) });
-router.get('/get-all-user', validateUser.validateToken, (req, res) => { loginController.getAllUser(req,res) });
-router.post('/update-user', validateUser.validateToken, (req, res) => { loginController.updateUser(req,res) });
-
-
-/*End*/
 
 module.exports = router;

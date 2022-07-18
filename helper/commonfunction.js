@@ -4,7 +4,8 @@ const Cryptr = require('cryptr');
 const cryptr = new Cryptr('1');	
 
 exports.createToken = async (userdtls) => {
-    var jwtToken =await jwt.sign(userdtls, 'secret');
+    var jwtToken =await jwt.sign(userdtls, process.env.JWT_SECRET, { algorithm: process.env.ALGORITHM, 
+        expiresIn: process.env.JWT_EXPIRES});
     return jwtToken;
 }
 
