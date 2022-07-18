@@ -7,6 +7,9 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const helmet = require("helmet");
 const cookieSession = require('cookie-session');
+var swaggerJSDoc = require('swagger-jsdoc');
+var swaggerUi = require('swagger-ui-express');
+
 const sequelizeConnection = require('./config/connection');
 
 var indexRouter = require('./routes/index');
@@ -14,6 +17,54 @@ var indexRouter = require('./routes/index');
 
 var app = express();
 
+const swaggerOptions = {
+  swaggerDefinition:{
+    info: {
+      title: 'Swagger demo api doc',
+      version: '1.0.0',
+      description: 'Swagger demo api doc',
+    },
+    servers:[
+      {
+        url: 'http://localhost:3000'
+      }
+    ],
+    components: {
+      securitySchemes: {
+        bearerAuth: {
+          type: 'http',
+          scheme: 'Bearer',
+          bearerFormat: 'JWT',
+        }
+      }
+    },
+    security:[
+      {
+        bearerAuth: [],
+      }
+    ],
+  }, 
+  apis:['./routes/*.js'],
+}
+
+const swaggerDefinition = {
+  info: {
+    title: 'Swagger demo',
+    version: '1.0.0',
+    description: 'Swagger demo',
+  },
+  host: 'localhost:3000',
+  basePath: '/api/admin',
+  securityDefinitions: {},
+};
+const options = {
+  swaggerDefinition,
+  apis: ['./routes/*.js' ],
+
+};
+
+const swaggerSpecs = swaggerJSDoc(options);
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpecs));
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');

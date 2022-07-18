@@ -45,22 +45,22 @@ exports.login = async (req, res) => {
                     res.send({ response: response_data });
                 }else{
                     response_status.msg = 'Password is incorrect.';
-                    response_status.action_status = true;
+                    response_status.action_status = false;
                     response_data.dataset = response_dataset;
                     response_data.status = response_status;               
 
-                    res.status(200);
+                    res.status(400);
                     res.send({ response: response_data });
                 }
 
             }
         } else {
             response_status.msg = 'Username or password is incorrect.';
-            response_status.action_status = true;
+            response_status.action_status = false;
             response_data.dataset = response_dataset;
             response_data.status = response_status;               
 
-            res.status(200);
+            res.status(400);
             res.send({ response: response_data });
         }
     } catch (e) {
