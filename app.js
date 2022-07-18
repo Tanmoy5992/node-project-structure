@@ -37,6 +37,11 @@ if(process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'staging'){
   app.use(helmet());
 }
 
+
+app.get('/health',(req,res) => {
+  return res.status(200).json({'status':true});
+});
+
 app.use('/api/', indexRouter);
 
 
