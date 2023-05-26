@@ -1,4 +1,5 @@
 const  UserModel  = require('../../model/user');
+const  UserRoleModel  = require('../../model/user.role');
 const  commonFunction  = require('../../../helper/commonfunction');
 
 exports.login = async (req, res) => {
@@ -247,6 +248,19 @@ exports.updateUser =  async (req, res) => {
         
         res.status(500);
         res.send({ response: response_data });
+    }
+    
+}
+
+exports.userRoles = async (req,res) => {
+
+    try{
+        let userRoleRecord 	= await UserModel.findAllData();
+        //console.log('userRoleRecord',userRoleRecord)
+        res.json(userRoleRecord );
+    } catch (e) {
+        console.log(e)
+        res.json({err:'userRoleRecord'} );
     }
     
 }

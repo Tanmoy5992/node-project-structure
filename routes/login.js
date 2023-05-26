@@ -67,7 +67,7 @@ router.post('/register',[], (req, res) => { loginController.register(req,res) })
 router.get('/get-all-user', validateUser.validateToken, (req, res) => { loginController.getAllUser(req,res) });
 router.post('/update-user', validateUser.validateToken, (req, res) => { loginController.updateUser(req,res) });
 router.post('/regenerate-token', validateUser.regenerateToken);
-
+router.get('/user-role',  (req, res) => { loginController.userRoles(req,res) });
 /*End*/
 
 module.exports = router;

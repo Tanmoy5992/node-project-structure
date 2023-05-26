@@ -5,7 +5,8 @@ const DBconnection = new Sequelize({
   username: process.env.USER,
   password: process.env.PASSWORD,
   host: process.env.HOST,
-  dialect: 'mysql'
+  dialect: 'mysql',
+  logging: false
 });
 
 const db = {}
@@ -13,8 +14,11 @@ const db = {}
 db.Sequelize = Sequelize
 db.DBconnection = DBconnection
 
-const userModel = require('../app/schema/user.schema');
-const user =  userModel(DBconnection, Sequelize);
+require('../app/schema/user.schema')(DBconnection, DataTypes);
+require('../app/schema/role.schema')(DBconnection, DataTypes);
+require('../app/schema/user.role.schema')(DBconnection, DataTypes);
+require('../app/schema/workspace')(DBconnection, DataTypes);
+require('../app/schema/user.workspace.schema')(DBconnection, DataTypes);
 
 DBconnection
   .authenticate()

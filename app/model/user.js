@@ -1,6 +1,10 @@
 const {Sequelize,Op} = require('sequelize');
 const sequelizeConnection = require('../../config/connection').DBconnection;
 const UserModel = require('../schema/user.schema')(sequelizeConnection, Sequelize.DataTypes,Sequelize.Model);
+const UserRoleModel = require('../schema/user.role.schema')(sequelizeConnection, Sequelize.DataTypes,Sequelize.Model);
+const RoleModel = require('../schema/role.schema')(sequelizeConnection, Sequelize.DataTypes,Sequelize.Model);
+const UserWorkspaceModel = require('../schema/user.workspace.schema')(sequelizeConnection, Sequelize.DataTypes,Sequelize.Model);
+const WorkspaceModel = require('../schema/workspace')(sequelizeConnection, Sequelize.DataTypes,Sequelize.Model);
 
 exports.findByAny = (dataobj) => {
     return UserModel.findOne(dataobj);
@@ -26,106 +30,27 @@ exports.updateAnyRecord = (updatedata, wheredata = {}) => {
     return UserModel.update(updatedata,wheredata);
 }
 
+exports.findAllData = () => {
+    // var AppUserModel = UserRoleModel.belongsTo(UserModel, {sourceKey: 'id', foreignKey : 'userId'});
+    // UserRoleModel.belongsTo(RoleModel, {sourceKey: 'id', foreignKey : 'roleId'});
+    UserModel.belongsToMany(RoleModel, {
+        through: UserRoleModel,
+        foreignKey : 'userId'
+    });
+    UserModel.belongsToMany(WorkspaceModel, {
+        through: UserWorkspaceModel,
+        foreignKey : 'userId'
+    });
+    return UserModel.findAll({ 
+        include: [
+            {
+                model:RoleModel
+            },
+            {
+                model:WorkspaceModel
+            }
+        ] 
+    });
+}
 
 
-
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-// module.exports = (sequelize, DataTypes, Model ) => {
-//     const User = sequelize.define('user', {
-//       userID: {
-//         type: DataTypes.INTEGER,
-//         primaryKey : true,
-//         autoIncrement :true ,
-//         allowNull: false
-//       },
-//       userName: {
-//         type: DataTypes.STRING,
-//         allowNull: false
-//       },
-//       password: {
-//         type: DataTypes.STRING,
-//         allowNull: false
-//       },
-//       firstName: {
-//         type: DataTypes.STRING,
-//         allowNull: true
-//       },
-//       lastName: {
-//         type: DataTypes.STRING,
-//         allowNull: true
-//       },
-//       phoneNumber: {
-//         type: DataTypes.STRING,
-//         allowNull: true
-//       },
-//       emergencyContact: {
-//         type: DataTypes.STRING,
-//         allowNull: true
-//       },
-//       verified: {
-//         type: DataTypes.BOOLEAN,
-//         allowNull: false
-//       }
-//     })
-  
-//     return User
-//   }
-
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-//  async function addNewRecord(dataobj) {
-//     return User.build(dataobj).save();
-// }
-
-
-
-// export function addNewRecord(dataobj){
-//     return User.build(dataobj).save();
-// }
-
-//export default {addNewRecord}
-// const { Sequelize,DataTypes }  = require('sequelize');
-// const sequelize = require('../../config/connection');
-// const User = sequelize.define('user',{
-//     userID: {
-//                 type: DataTypes.INTEGER,
-//                 primaryKey : true,
-//                 autoIncrement :true ,
-//                 allowNull: false
-//               },
-//               userName: {
-//                 type: DataTypes.STRING,
-//                 allowNull: false
-//               },
-//               password: {
-//                 type: DataTypes.STRING,
-//                 allowNull: false
-//               },
-//               firstName: {
-//                 type: DataTypes.STRING,
-//                 allowNull: true
-//               },
-//               lastName: {
-//                 type: DataTypes.STRING,
-//                 allowNull: true
-//               },
-//               phoneNumber: {
-//                 type: DataTypes.STRING,
-//                 allowNull: true
-//               },
-//               emergencyContact: {
-//                 type: DataTypes.STRING,
-//                 allowNull: true
-//               },
-//               verified: {
-//                 type: DataTypes.BOOLEAN,
-//                 allowNull: false
-//               }
-// });
-
-//  async function addNewRecord(dataobj) {
-//     return User.build(dataobj).save();
-// }
-
-// module.exports = {User,addNewRecord};
