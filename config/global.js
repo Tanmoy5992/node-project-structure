@@ -5,7 +5,7 @@ const DBconnection = new Sequelize({
   username: process.env.USER,
   password: process.env.PASSWORD,
   host: process.env.HOST,
-  dialect: "postgres",
+  dialect: "mysql",
 });
 
 console.log({

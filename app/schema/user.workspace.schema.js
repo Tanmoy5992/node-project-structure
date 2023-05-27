@@ -1,5 +1,5 @@
 
-module.exports = (sequelize, DataTypes, Model ) => {
+// module.exports = (sequelize, DataTypes, Model ) => {
     const UserWorkspace = sequelize.define('userworkspace', {
       id: {
         type: DataTypes.INTEGER,
@@ -17,7 +17,7 @@ module.exports = (sequelize, DataTypes, Model ) => {
       }
     })
   
-    return UserWorkspace
-  }
+    module.exports = UserWorkspace
+  //}
 
   

@@ -42,9 +42,9 @@ exports.findAllData = () => {
       {
         model: RoleModel,
       },
-      //   {
-      //     model: WorkspaceModel,
-      //   },
+        {
+          model: WorkspaceModel,
+        },
     ],
   });
   //   return UserRoleModel.findAll({
