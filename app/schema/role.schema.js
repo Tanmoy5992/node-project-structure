@@ -1,6 +1,4 @@
-const userRoleModel = require("./user.role.schema");
-const userModel = require("./user.schema");
-// module.exports = (sequelize, DataTypes, Model ) => {
+
 const Role = sequelize.define("roles", {
   id: {
     type: DataTypes.INTEGER,
@@ -14,11 +12,4 @@ const Role = sequelize.define("roles", {
   },
 });
 
-//   Role.associate = function(models) {
-//     // associations can be defined here
-//     Role.belongsToMany(userModel, { through: userRoleModel, foreignKey : 'roleId' });
-
-// };
-
 module.exports = Role;
-// }

@@ -12,7 +12,6 @@ var swaggerJSDoc = require("swagger-jsdoc");
 var swaggerUi = require("swagger-ui-express");
 
 require("./config/connection");
-// const sequelizeConnection = require("./config/connection");
 
 var indexRouter = require("./routes/index");
 

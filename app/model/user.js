@@ -1,5 +1,4 @@
 const { Sequelize, Op } = require("sequelize");
-const sequelizeConnection = require("../../config/connection").DBconnection;
 const UserModel = require("../schema/user.schema");
 const UserRoleModel = require("../schema/user.role.schema");
 const RoleModel = require("../schema/role.schema");
@@ -27,16 +26,6 @@ exports.updateAnyRecord = (updatedata, wheredata = {}) => {
 };
 
 exports.findAllData = () => {
-  // var AppUserModel = UserRoleModel.belongsTo(UserModel, {sourceKey: 'id', foreignKey : 'userId'});
-  // UserRoleModel.belongsTo(RoleModel, {sourceKey: 'id', foreignKey : 'roleId'});
-  // UserModel.belongsToMany(RoleModel, {
-  //     through: UserRoleModel,
-  //     foreignKey : 'userId'
-  // });
-  // UserModel.belongsToMany(WorkspaceModel, {
-  //     through: UserWorkspaceModel,
-  //     foreignKey : 'userId'
-  // });
   return UserModel.findAll({
     include: [
       {
@@ -47,17 +36,4 @@ exports.findAllData = () => {
         },
     ],
   });
-  //   return UserRoleModel.findAll({
-  //     include: [
-  //       {
-  //         model: UserModel,
-  //       },
-  //       {
-  //         model: RoleModel,
-  //       },
-  //       // {
-  //       //   model: WorkspaceModel,
-  //       // },
-  //     ],
-  //   });
 };
