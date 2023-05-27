@@ -1,0 +1,9 @@
+{
+    "dev":{
+            "database":"database_development",
+            "user":"root",
+            "password":"root",
+            "host":"localhost",
+            "driver":"mysql"
+        }
+}
