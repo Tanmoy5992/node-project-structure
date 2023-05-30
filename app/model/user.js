@@ -9,8 +9,8 @@ exports.findByAny = (dataobj) => {
   return UserModel.findOne(dataobj);
 };
 
-exports.addNewRecord = (dataobj) => {
-  return UserModel.create(dataobj);
+exports.addNewRecord = async (dataobj, transaction) => {
+  return UserModel.create(dataobj, { transaction } );
 };
 
 exports.getAllRecord = (search_str, pageLimit, offset) => {
