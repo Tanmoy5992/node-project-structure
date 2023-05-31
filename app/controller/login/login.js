@@ -1,4 +1,5 @@
 const  UserModel  = require('../../model/user');
+const  UserRoleModel  = require('../../model/user.role');
 const  commonFunction  = require('../../../helper/commonfunction');
 
 exports.login = async (req, res) => {
@@ -247,6 +248,44 @@ exports.updateUser =  async (req, res) => {
         
         res.status(500);
         res.send({ response: response_data });
+    }
+    
+}
+
+exports.userRoles = async (req,res) => {
+
+    try{
+        let userRoleRecord 	= await UserModel.findAllData();
+        //console.log('userRoleRecord',userRoleRecord)
+        res.json(userRoleRecord );
+    } catch (e) {
+        console.log(e)
+        res.json({err:'userRoleRecord'} );
+    }
+    
+}
+
+exports.testTransaction = async (req,res) => {
+    // let dbTransaction = await sequelize.transaction();
+    try {
+        var hashPassword = await commonFunction.hashPassword('test');
+
+        const addObj = {
+            userName:'req.body.username1',
+            password:hashPassword,
+            verified:true
+        }
+        const data = await UserModel.addNewRecord(addObj,dbTransaction);
+
+        const roleData = await UserRoleModel.addNewRecord({testId:data.test});
+        await dbTransaction.commit();
+        res.json({ok:'ok'} );
+    } catch (e) {
+        if(dbTransaction){
+            await dbTransaction.rollback();
+        }        
+        console.log(e)
+        res.json({err:'error'} );
     }
     
 }
