@@ -1,5 +1,16 @@
-//require('dotenv').config()
-require("dotenv").config({ path: `./env/development.env` });
+const dotenv = require("dotenv");
+
+if(process.env.NODE_ENV === 'dev'){
+  console.log('dev env');
+  dotenv.config({ path: `./env/development.env` });
+} else if(process.env.NODE_ENV === 'staging'){
+  console.log('staging env');
+  dotenv.config({ path: `./env/staging.env` })
+} else if(process.env.NODE_ENV === 'prod'){
+  console.log('prod env');
+  dotenv.config({ path: `./env/production.env` })
+}
+
 require("./config/global");
 var createError = require("http-errors");
 var express = require("express");
@@ -14,6 +25,7 @@ var swaggerUi = require("swagger-ui-express");
 require("./config/connection");
 
 var indexRouter = require("./routes/index");
+const e = require("express");
 
 var app = express();
 
