@@ -1,9 +1,23 @@
 {
     "dev":{
-            "database":"database_development",
-            "user":"root",
-            "password":"root",
-            "host":"localhost",
-            "driver":"mysql"
-        }
+        "database":"database_development",
+        "user":"root",
+        "password":"root",
+        "host":"localhost",
+        "driver":"mysql"
+    },
+    "staging":{
+        "database":"database_staging",
+        "user":"root",
+        "password":"root",
+        "host":"localhost",
+        "driver":"mysql"
+    },
+    "prod":{
+        "database":"database_production",
+        "user":"root",
+        "password":"root",
+        "host":"localhost",
+        "driver":"mysql"
+    }
 }
