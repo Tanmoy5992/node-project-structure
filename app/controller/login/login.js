@@ -266,7 +266,7 @@ exports.userRoles = async (req,res) => {
 }
 
 exports.testTransaction = async (req,res) => {
-    // let dbTransaction = await sequelize.transaction();
+    let dbTransaction = await sequelize.transaction();
     try {
         var hashPassword = await commonFunction.hashPassword('test');
 

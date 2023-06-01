@@ -12,7 +12,7 @@ const DBconnection = new Sequelize({
 global.sequelize = DBconnection;
 global.DataTypes = DataTypes;
 
-(async () => {
-  let dbTransaction = await sequelize.transaction();
-  global.dbTransaction = dbTransaction;
-})();
+// (async () => {
+//   let dbTransaction = await sequelize.transaction();
+//   global.dbTransaction = dbTransaction;
+// })();
