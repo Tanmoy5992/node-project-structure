@@ -1,9 +1,9 @@
 {
     "dev":{
-        "database":"database_development",
-        "user":"root",
-        "password":"root",
-        "host":"localhost",
+        "database":{"ENV":"DATABASE"},
+        "user":{"ENV":"USER"},
+        "password":{"ENV":"PASSWORD"},
+        "host":{"ENV":"HOST"},
         "driver":"mysql"
     },
     "staging":{
