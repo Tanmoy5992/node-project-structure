@@ -9,7 +9,10 @@
     "prod": "cross-env NODE_ENV=prod nodemon ./bin/www",
     "migrate:up": "db-migrate up",
     "migrate:down": "db-migrate down",
-    "seed:dev": "cross-env NODE_ENV=dev npx sequelize-cli db:seed:all --env development ---seeders-path seeders",
+    "sequelize:dev:migrate:up":"cross-env NODE_ENV=dev npx sequelize-cli db:migrate --env development",
+    "sequelize:staging:migrate:up":"cross-env NODE_ENV=dev npx sequelize-cli db:migrate --env staging",
+    "sequelize:prod:migrate:up":"cross-env NODE_ENV=dev npx sequelize-cli db:migrate --env production",
+    "seed:dev": "cross-env NODE_ENV=dev npx sequelize-cli db:seed:all --env development",
     "sequelize:seed:dev": "npx sequelize-cli db:seed:all --env development --config config/config.json ---seeders-path seeders",
     "sequelize:seed:staging": "npx sequelize-cli db:seed:all --env staging --config config/config.json ---seeders-path seeders",
     "sequelize:seed:prod": "npx sequelize-cli db:seed:all --env production --config config/config.json ---seeders-path seeders"
